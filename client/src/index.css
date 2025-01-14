@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+    background-image: url('./assets/images/Background.png'); 
+    @apply bg-background bg-left-top bg-repeat;
+  }
+  
+  .hamburger-line{
+    @apply w-[30px] h-[2.5px] my-2 block bg-black;
+  }
+  
+  .hamburger-activate > span:nth-child(1){
+    @apply  rotate-45 translate-x-1;
+  }
+  .hamburger-activate > span:nth-child(2){
+    @apply scale-0
+  }
+  .hamburger-activate > span:nth-child(3){
+    @apply  -rotate-45  translate-x-1;
+  }
+  
+  .navbar-fixed {
+    @apply fixed z-[9999] shadow-md;
+  }
+  
+  .navOpt-activate{
+    @apply flex flex-col
+  }
+  .dropdown-activate{
+    @apply  bg-ourLime 
+  }
+  
+  .dropdown-activate > p{
+    @apply text-slate-50
+  }
+  
+  .dropdown-activate > p > svg{
+    @apply fill-slate-50 rotate-0
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .page {
+    @apply px-2 py-1 border border-gray-200 rounded-sm text-gray-500 hover:bg-gray-100;
+  }
+  
+  .active {
+    @apply bg-blue-500 text-white;
+  }
+  
+  .prev,
+  .next {
+    @apply px-2 py-1 border border-gray-200 rounded-sm text-gray-500 hover:bg-gray-100;
+  }
+  
+  .page-active{
+    @apply bg-black border-solid border-white border-spacing-2 text-slate-50 underline
+  }
