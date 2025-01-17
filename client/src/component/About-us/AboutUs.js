@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function AboutUs() {
   return (
-    <body class="bg-white flex justify-center items-center min-h-screen">
+    <body class="flex justify-center items-center min-h-screen">
     <div class="bg-white p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl shadow-lg max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-2xl">
         <h1 class="text-5xl sm:text-6xl md:text-7xl font-black text-[#F27825] mb-4">About TrackEat.</h1>
         <div class="bg-orange-100 p-6 sm:p-8 md:p-10 rounded-2xl border-2 border-[#ED427F]">
