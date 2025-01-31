@@ -87,15 +87,30 @@ app.post('/register',async(req,res)=>{
 
     try{
 
-        const {name, email, password } = req.body;
+        const {email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password,10);
-        if (!name || !email || !password) {
-            return res.status(400).json({ error: 'Name, email, and password are required'});
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Email and Password are required'});
         }
         const result = await pool.query(
-            `INSERT INTO users (name,email,password) VALUES ($1, $2, $3) RETURNING *`,[name,email,hashedPassword]
+            `INSERT INTO users (email,password) VALUES ($1, $2) RETURNING *`,[email,hashedPassword]
         );
-        res.status(201).json(result.rows[0]);
+        const payload = {
+            id: result.rows[0].id,
+            name: result.rows[0].id,
+        }
+        const secret = process.env.JWT_SECRET;
+        const duration = 60 * 60 * 1;
+        const token = jwt.sign(payload,secret,{expiresIn: duration});
+        return res.json(
+            {
+                data:{
+                    id: result.rows[0].id,
+                    name: result.rows[0].name
+                },
+                token: token
+            }
+        )
     }catch(err){
         console.error(err);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -111,7 +126,7 @@ app.post('/login',async(req,res)=>{
         if(user.rowCount == 0)
         {
             return res.status(404).json(
-                {message: 'User not found'}
+                {message: 'Incorrect Username or Password'}
             );
         }
         if(!user.rows[0].password){
@@ -140,7 +155,7 @@ app.post('/login',async(req,res)=>{
             )
         }else{
             return res.status(403).json({
-                message:'Wrong Password'
+                message:'Incorrect Username or Password'
             })
         }
 

@@ -4,7 +4,10 @@ import Home from './Home-Before/Home';
 import Footer from './Footer';
 import AboutUs from './About-us/AboutUs';
 import ProtectedRoute from './ProtectedRoute';
-import Login from './Login/LoginSementara';
+// import Login from './Login/LoginSementara.js';
+import Login from './Login/Login.js';
+import Register from './Register/Register.js';
+import Sections from './Register/Sections.js';
 
 
 function App() {
@@ -14,9 +17,11 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}></Route>
           <Route path='/login' element={<Login/>}></Route>
+          <Route path='/register' element={<Register/>}></Route>
+          <Route path='/Section' element={<Sections/>}></Route>
           <Route path='/about-us' element={<ProtectedRoute><AboutUs/></ProtectedRoute>}></Route>
         </Routes>
-      <Footer/>
+      {/* <Footer/> */}
       </div>
     </BrowserRouter>
     
