@@ -25,7 +25,7 @@ function Sections()
     const [step,setStep] = useState(0);
 
     const handleNext = () => {
-      if(step===6)navigate("/about-us")
+      if(step===6)navigate("/home")
         setStep(step + 1); // Pindah ke step selanjutnya
       };
 

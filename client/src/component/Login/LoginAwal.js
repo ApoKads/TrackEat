@@ -39,7 +39,7 @@ const LoginAwal = () =>
       };
 
       useEffect(() => {
-        const intervalId = setInterval(() => {
+          const intervalId = setInterval(() => {
           const currentIndex = colors.indexOf(currentColor);
           const nextIndex = (currentIndex + 1) % colors.length;
           setCurrentColor(colors[nextIndex]);
