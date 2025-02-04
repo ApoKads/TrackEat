@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children }) => {
         }
 
         const response = await axios.post(
-          '/validate-token', 
+          '/user/validate-token', 
           {},
           {
             headers: {
@@ -41,6 +41,7 @@ const ProtectedRoute = ({ children }) => {
 
   if (!isValid) {
     // Jika token tidak valid atau tidak ada, redirect ke login
+    localStorage.removeItem('token');
     return <Navigate to="/login" />;
   }
 

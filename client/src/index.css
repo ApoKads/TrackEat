@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* @plugin "flowbite/plugin"; */
+/* @source "../node_modules/flowbite"; */
 
 body{
     background-image: url('./assets/images/Background.png'); 

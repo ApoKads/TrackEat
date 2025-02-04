@@ -4,7 +4,7 @@ import LoginAwal from "./LoginAwal";
 
 function Login()
 {
-    return <div class=" min-h-screen flex items-center justify-center h-[100vh]">
+    return <div className=" min-h-screen flex items-center justify-center h-[100vh]">
         
         <LoginAwal/>
 

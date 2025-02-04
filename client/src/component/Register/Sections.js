@@ -4,13 +4,28 @@ import MeasurementSection from "./MeasurementSection";
 import NameSection from "./NameSection";
 import GoalSection from "./GoalSection";
 import GenderSection from "./GenderSection";
-import ProtectedRoute from "../ProtectedRoute";
+import ProtectedRoute from "../Route/ProtectedRoute";
 import ActivitySection from "./ActivitySection";
 import ProgressSection from "./ProgressSection";
 import ConfirmationSection from "./ConfirmationSection";
-
+import MeasureGoalSection from "./MeasureGoalSection";
+import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 function Sections()
 {
+    const getUserId = () => {
+      const token = localStorage.getItem("token");
+      if (!token) return null;
+      try {
+          const decoded = jwtDecode(token);
+          return decoded.id;
+      } catch (error) {
+          console.error("Invalid token:", error);
+          return null;
+      }
+  };
+  
+    const [id] = useState(getUserId)
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [selectedSex, setSelectedSex] = useState("");
@@ -20,12 +35,45 @@ function Sections()
     const [height, setHeight] = useState(0);
     const [ActivityOption,setActivityOption] = useState("");
     const [ProgressOption,setProgressOption] = useState("");
+    const [goal,setGoal] = useState(0);
     const navigate = useNavigate();
 
     const [step,setStep] = useState(0);
 
+
+
+  const handleSubmit = async () => {
+    try {
+        // Kirim data ke backend, termasuk userId
+        const response = await axios.post("/user/update", {
+            id, // Gunakan userId yang didapat dari token
+            firstName,
+            lastName,
+            selectedSex,
+            Age,
+            WeightOption,
+            weight,
+            height,
+            ActivityOption,
+            ProgressOption,
+            goal,
+        });
+
+        console.log("Response:", response.data);
+        alert("User data updated successfully!");
+
+        navigate("/home"); // Redirect setelah update sukses
+    } catch (error) {
+        console.error("Error updating user data:", error);
+        alert("Failed to update user data. Please try again.");
+    }
+};
     const handleNext = () => {
-      if(step===6)navigate("/home")
+      if(step===7)
+        {
+          handleSubmit();
+          navigate("/home")
+        }
         setStep(step + 1); // Pindah ke step selanjutnya
       };
 
@@ -34,13 +82,15 @@ function Sections()
         setStep(step - 1); // Pindah ke step selanjutnya
       };
     useEffect(() => {
+        console.log('id: ',id)
         console.log('Name: ',firstName,lastName)
         console.log('Gender: ',selectedSex)
         console.log('Age: ',Age)
-        console.log('Goal: ',WeightOption)
+        console.log('WeightOpt: ',WeightOption)
         console.log('Weight :',weight,' Height:',height);
         console.log('ActivityOption: ',ActivityOption);
         console.log('Progress Option: ',ProgressOption);
+        console.log('Goal:',goal)
       });
 
     
@@ -84,12 +134,24 @@ function Sections()
           setWeight = {setWeight}
           height = {height}
           setHeight = {setHeight}
+          WeightOption ={WeightOption}
+          onNext ={handleNext}
+          onPrev ={handlePrev}
+          />
+        )}
+        {step === 4 && (
+          <MeasureGoalSection
+          weight ={weight}
+          setWeight = {setWeight}
+          goal = {goal}
+          setGoal = {setGoal}
+          WeightOption ={WeightOption}
           onNext ={handleNext}
           onPrev ={handlePrev}
           />
         )}
 
-        {step===4 && (
+        {step === 5 && (
 
           <ActivitySection
           ActivityOption = {ActivityOption}
@@ -99,7 +161,7 @@ function Sections()
         />
         )}
 
-        {step === 5 && (
+        {step === 6 && (
           <ProgressSection
           ProgressOption={ProgressOption}
           setProgressOption = {setProgressOption}
@@ -107,7 +169,7 @@ function Sections()
           onPrev = {handlePrev}
         />
         )}
-        {step === 6 && (
+        {step === 7 && (
           <ConfirmationSection
           onNext = {handleNext}
           onPrev = {handlePrev}

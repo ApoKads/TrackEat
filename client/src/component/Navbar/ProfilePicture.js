@@ -1,43 +1,109 @@
-import React, { useState, useEffect ,useRef} from 'react';
-import pp from '../../assets/images/pp.jpg'
+"use client";
 
-function ProfilePicture() {
-    const HandleClick =()=>{
-        document.getElementById("dropdownUserAvatarButton").click();
-    }
+import { useState ,useEffect, useContext} from "react";
+import { useNavigate } from "react-router-dom";
+import { Avatar, Dropdown, Flowbite } from "flowbite-react";
+import type { CustomFlowbiteTheme } from "flowbite-react";
+import ProfPict from '../../assets/images/pp.jpg';
+import { UserContext } from "../UserProvider";
 
-    return (
-                <div className='lg:hover:bg-orange-400 px-3.5 lg:flex py-2 group/Login transition ease-in-out lg:py-4 lg:order-2 lg:px-2 lg:items-center font-semibold lg:w-[30%] lg:justify-center '
-                onClick={HandleClick}>
-                        
-                        <button onClick={HandleClick}id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
-                        <span class="sr-only">Open user menu</span>
-                        <img class="w-12 h-12 rounded-full" src={pp} alt="user photo"/>
-                        </button>
-                
-                        <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-42 dark:bg-gray-700 dark:divide-gray-600">
-                            <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                            <div>Bonnie Green</div>
-                            <div class="font-medium truncate">name@flowbite.com</div>
-                            </div>
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                            </li>
-                            </ul>
-                            <div class="py-2">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                            </div>
-                        </div>
-                
-                    </div>
-    );
+// Definisikan tema kustom
+const customTheme: CustomFlowbiteTheme = {
+  button: {
+    color: {
+      primary: "bg-red-500 hover:bg-red-600", // Tema kustom untuk tombol
+    },
+  },
+  avatar: {
+    root: {
+      size: {
+        lg: "h-24 w-24", // Sesuaikan ukuran Avatar besar
+        md: "h-12 w-12", // Sesuaikan ukuran Avatar sedang
+        sm: "h-10 w-10",  // Sesuaikan ukuran Avatar kecil
+      },
+    },
+  },
+  dropdown: {
+    floating: {
+      style: {
+        auto: "bg-white border border-gray-200 rounded-lg shadow-sm", // Sesuaikan gaya Dropdown
+      },
+    },
+  },
+};
+
+function Test2({ isOpen, onClose }) {
+
+  // const [user,setUser] = useState([]);
+  const { user, loading } = useContext(UserContext); 
+  const navigate = useNavigate();
+  const handleNavigate = (path) => {
+    navigate(path); // Navigasi ke path yang diberikan
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
   }
-  
-  export default ProfilePicture;
+
+
+  return (
+    <Dropdown
+      arrowIcon={false}
+      inline
+      isOpen={isOpen} // Kontrol apakah Dropdown terbuka atau tertutup
+      onClose={onClose} // Tangani ketika Dropdown ditutup
+      label={
+        <Avatar alt="User settings" className=" w-full" img={ProfPict} size="md" rounded />
+      }
+    >
+      <Dropdown.Header>
+        <span className="block text-sm">{user.first_name}</span>
+        <span className="block truncate text-sm font-medium">{user.google_email? user.google_email:user.email}</span>
+      </Dropdown.Header>
+      <Dropdown.Item onMouseDown={(e) => {
+                e.preventDefault();
+                handleNavigate("/profile");
+            }}>
+                Profile
+            </Dropdown.Item>
+            <Dropdown.Item onMouseDown={(e) => {
+                e.preventDefault();
+                handleNavigate("/goal");
+            }}>
+                Goal
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item onMouseDown={(e) => {
+                e.preventDefault();
+                handleNavigate("/login");
+            }}>
+                Sign out
+            </Dropdown.Item>
+    </Dropdown>
+  );
+}
+
+export default function ProfilePicture() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State untuk mengontrol Dropdown
+
+  // Fungsi untuk membuka/tutup Dropdown
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Fungsi untuk menutup Dropdown
+  const closeDropdown = () => {
+    setIsDropdownOpen(false);
+  };
+
+  return (
+    <div
+      className='px-3.5 lg:flex py-2 group/Login transition ease-in-out lg:py-4 lg:order-2 lg:px-2 lg:items-center font-semibold lg:w-[30%] lg:justify-center'
+      onClick={toggleDropdown} // Buka/tutup Dropdown ketika div diklik
+    >
+      <Flowbite theme={{ theme: customTheme }}>
+        <Test2 isOpen={isDropdownOpen} onClose={closeDropdown} />
+      </Flowbite>
+    </div>
+  );
+}

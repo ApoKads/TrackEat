@@ -21,12 +21,12 @@ const LoginAwal = () =>
     
         try {
         console.log(email,password)
-          const response = await axios.post('/login', { email, password });
+          const response = await axios.post('/user/login', { email, password });
           if (response.status === 200) {
             const token = response.data.token; // Ambil token dari respons
             localStorage.setItem('token', token);
-            console.log(token)
-            navigate('/about-us');
+            console.log('login bang')
+            navigate('/home');
           }
         } catch (error) {
           if (error.response) {
@@ -48,35 +48,36 @@ const LoginAwal = () =>
         return () => clearInterval(intervalId);
       }, [currentColor]);
 
-       return <div class="flex flex-col bg-white md:flex-row md:h-[500px] h-full w-full shadow-lg rounded-lg border-2 border-gray-300 md:w-2/3 overflow-hidden">  
+       return <div className="flex flex-col bg-white md:flex-row md:h-[500px] h-full w-full shadow-lg rounded-lg border-2 border-gray-300 md:w-2/3 overflow-hidden">  
         
             <div className={`bg-${currentColor} text-white flex flex-col items-center justify-center w-full md:w-[45%] md:h-full md:rounded-tr-3xl md:shadow-[6px_0_8px_-1px_rgba(0,0,0,0.1)] md:space-y-10 transition duration-300 ease-in-out`}>
-                <img src={FireLoginLogo} alt="TrackEat Logo" class="w-60 h-60 md:w-40 md:h-40 lg:w-60 lg:h-60"/>
-                <h1 class="text-xl font-bold text-center font-poppins flex justify-start items-start md:text-2xl">
+                <img src={FireLoginLogo} alt="TrackEat Logo" className="w-60 h-60 md:w-40 md:h-40 lg:w-60 lg:h-60"/>
+                <h1 className="text-xl font-bold text-center font-poppins flex justify-start items-start md:text-2xl">
                     Welcome to TrackEat.
                 </h1>
             </div>
         
-            <div class="lg:w-4/5 w-full p-6 flex flex-col items-center justify-center">
+            <div className="lg:w-4/5 w-full p-6 flex flex-col items-center justify-center">
             
-            <div class="space-x-4 flex flex-row w-3/4">
+            <div className="space-x-4 flex flex-row w-3/4">
             
-                <Link className="w-full">
-                    <button class="flex items-center justify-center w-full px-4 py-2 border-2 border-gray-300 bg-white text-black rounded-md shadow hover:shadow-lg transition-shadow">
-                    <img src={GoogleLogo} alt="Google Logo" class="h-5 w-5 mr-2"/> Login with Google
-                    </button>
-                </Link>
+                <button
+                      onClick={() => window.location.href = 'http://localhost:3000/user/auth/google'}
+                      className="flex items-center justify-center w-full px-4 py-2 border-2 border-gray-300 bg-white text-black rounded-md shadow hover:shadow-lg transition-shadow"
+                >
+                      <img src={GoogleLogo} alt="Google Logo" className="h-5 w-5 mr-2" /> Login with Google
+                </button>
             </div>
 
-            <div class="my-6 text-center text-gray-500">- OR -</div>
+            <div className="my-6 text-center text-gray-500">- OR -</div>
 
 
             <form onSubmit={handleSubmit} className=" w-3/4 flex flex-col">
-                <div class="space-y-4">
-                <input type="email" id ="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Email Address" class={`w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-ourLime`}/>
-                <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Create Password" class={`w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-ou`} required/>
+                <div className="space-y-4">
+                <input type="email" id ="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Email Address" className={`w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-ourLime`}/>
+                <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Create Password" className={`w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-ou`} required/>
                 </div>
-                <p class="text-xs text-gray-500 mt-2">Must be at least 10 characters, no spaces.</p>
+                <p className="text-xs text-gray-500 mt-2">Must be at least 10 characters, no spaces.</p>
 
                 {/* Error Message */}
                 <div
@@ -89,10 +90,10 @@ const LoginAwal = () =>
                 
                 
 
-                <div class="flex flex-col items-center justify-center">
-                <button type="submit" id="LoginButton" class={`w-full bg-white text-black py-2 px-4 mt-4 rounded-lg border-2 border-gray-300 justify-center shadow hover:bg-lime-500 hover:text-white transition ease-in-out delay-100`}>Login</button>
+                <div className="flex flex-col items-center justify-center">
+                <button type="submit" id="LoginButton" className={`w-full bg-white text-black py-2 px-4 mt-4 rounded-lg border-2 border-gray-300 justify-center shadow hover:bg-lime-500 hover:text-white transition ease-in-out delay-100`}>Login</button>
                 <Link className="w-full" to='/register'>
-                    <button type="button" id="createAccountButton" class={`w-full bg-white text-black py-2 px-4 mt-4 rounded-lg border-2 border-gray-300 justify-center shadow hover:bg-lime-500 hover:text-white transition ease-in-out delay-100`}>Create Account</button>
+                    <button type="button" id="createAccountButton" className={`w-full bg-white text-black py-2 px-4 mt-4 rounded-lg border-2 border-gray-300 justify-center shadow hover:bg-lime-500 hover:text-white transition ease-in-out delay-100`}>Create Account</button>
                 </Link>
                 </div>
             </form>
