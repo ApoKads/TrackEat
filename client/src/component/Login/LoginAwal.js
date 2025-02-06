@@ -25,7 +25,6 @@ const LoginAwal = () =>
           if (response.status === 200) {
             const token = response.data.token; // Ambil token dari respons
             localStorage.setItem('token', token);
-            console.log('login bang')
             navigate('/home');
           }
         } catch (error) {

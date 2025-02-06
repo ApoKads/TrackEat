@@ -4,6 +4,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import userRoutes from './routes/user.js'; // Impor router user
 import foodRoutes from './routes/food.js'; // Impor router user
+import trackerRoutes from './routes/tracker.js';
+import  recipeRoutes from './routes/recipe.js';
 import { config } from 'dotenv';
 
 // Load environment variables
@@ -20,6 +22,8 @@ app.use(bodyParser.json()); // Untuk parsing JSON request body
 // Gunakan router untuk route yang berhubungan dengan user
 app.use('/user', userRoutes);
 app.use('/food',foodRoutes);
+app.use('/calorie-tracker',trackerRoutes);
+app.use('/recipe',recipeRoutes);
 
 // Route dasar untuk mengecek apakah server berjalan
 app.get('/', (req, res) => {

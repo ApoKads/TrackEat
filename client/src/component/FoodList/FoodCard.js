@@ -5,7 +5,7 @@ function FoodCard(props)
 {
     const navigate = useNavigate();
     const handleOnClick = () => {
-        navigate(`/food/detail/${props.id}`);
+        navigate(`/meal-finder/detail/${props.id}`);
       };
     
     return(

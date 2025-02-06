@@ -14,7 +14,9 @@ import { UserProvider } from './UserProvider';
 import GoogleCallback from './Google/GoogleCallback.js';
 import FoodPage from './FoodList/FoodPage.js';
 import BMICalculator from './Bmi-Calculator/BMIPage.js';
-import Chart from './calorie-tracker/chart.js';
+import TrackerPage from './calorie-tracker/TrackerPage.js';
+import FoodDetailPage from './FoodDetail/FoodDetailPage.js';
+
 function App() {
   return (
     <BrowserRouter>
@@ -22,7 +24,6 @@ function App() {
         <Routes>
         <Route path='/' element={
             <PublicRoute>
-              {/* <Chart/> */}
               <Home/>
             </PublicRoute>
           } />
@@ -47,9 +48,9 @@ function App() {
           
           <Route path='/section' element={
               <ProtectedRoute>
-                <UserProvider>
+                {/* <UserProvider> */}
                   <Sections/>
-                </UserProvider>
+                {/* </UserProvider> */}
               </ProtectedRoute>
             }></Route>
 
@@ -79,6 +80,15 @@ function App() {
                 </RegistrationRoute>
               </UserProvider>
             </ProtectedRoute>}></Route>
+            
+            <Route path='/meal-finder/detail/:id' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                    <FoodDetailPage/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
 
             <Route path='/bmi-calculator' element={
             <ProtectedRoute>
@@ -88,7 +98,16 @@ function App() {
                 </RegistrationRoute>
               </UserProvider>
             </ProtectedRoute>}></Route>
+            
 
+            <Route path='/calorie-tracker' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                  <TrackerPage/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
         </Routes>
       {/* <Footer/> */}
       </div>

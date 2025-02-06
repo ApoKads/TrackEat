@@ -33,9 +33,6 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-//   useEffect(() => {
-//     console.log('User in Here:', user); // Ini akan dijalankan setiap kali `user` berubah
-//   }, [user]); 
   
   useEffect(() => {
     fetchUserInfo();

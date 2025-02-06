@@ -61,7 +61,6 @@ function Sections()
 
         console.log("Response:", response.data);
         alert("User data updated successfully!");
-
         navigate("/home"); // Redirect setelah update sukses
     } catch (error) {
         console.error("Error updating user data:", error);
@@ -72,7 +71,7 @@ function Sections()
       if(step===7)
         {
           handleSubmit();
-          navigate("/home")
+          // navigate("/home");
         }
         setStep(step + 1); // Pindah ke step selanjutnya
       };
@@ -93,9 +92,31 @@ function Sections()
         console.log('Goal:',goal)
       });
 
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get(`/user/info`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+    
+          const userData = response.data.data;
+    
+          // Jika first_name sudah ada, redirect ke /home
+          if (userData.first_name) {
+            navigate("/home");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+    
+      // Panggil fetchUserData saat komponen dimuat
+      useEffect(() => {
+        fetchUserData();
+      }, []);
     
     return <div className="min-h-screen flex items-center justify-center h-[100vh]">
-        <ProtectedRoute>
         {step === 0 && ( // Gunakan conditional rendering dengan operator &&
           <NameSection
             firstName={firstName}
@@ -175,7 +196,6 @@ function Sections()
           onPrev = {handlePrev}
           />
         )}
-        </ProtectedRoute>
 
     </div>
 }

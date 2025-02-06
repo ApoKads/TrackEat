@@ -1,36 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+// import './chart.css';
 
-function App() {
-  const [value, setValue] = useState(70); // Set initial progress value
-  const [nominal,setNominal] = useState(2045)
+function Chart(props) {
+
+  // Testing Unit
 
   // Function to update progress smoothly
-  const increaseProgress = () => {
-    setValue((prevValue) => (prevValue >= 100 ? 100 : prevValue + 10)); // Increase by 10, max 100
-  };
+  // const increaseProgress = () => {
+  //   props.setEaten((prevEaten) => {
+  //     // Prevent exceeding the total calorie limit
+  //     const newEaten = prevEaten + 100;
+  //     return newEaten >= props.calorie ? props.calorie : newEaten;
+  //   });
+  // };
 
-  const decreaseProgress = () => {
-    setValue((prevValue) => (prevValue <= 0 ? 0 : prevValue - 10)); // Decrease by 10, min 0
-  };
-  const formattedNominal = new Intl.NumberFormat('en-US').format(nominal);
+  // const decreaseProgress = () => {
+  //   props.setEaten((prevEaten) => {
+  //     // Prevent going below zero calories
+  //     return prevEaten <= 0 ? 0 : prevEaten - 100;
+  //   });
+  // };
+
+  const formattedNominal = new Intl.NumberFormat('en-US').format(props.calorie-props.eaten);
 
   return (
-    <div className='w-[28rem] h-[28rem] bg-red-500 flex justify-center items-center flex-col'>
+    <div className='w-[16rem] h-[16rem] md:w-[28rem] md:h-[28rem] flex justify-center items-center flex-col'>
       <CircularProgressbar
-      className='flex items-center justify-center p-4 overflow-visible'
-        value={value}
+      className='flex items-center justify-center p-4 overflow-visible z-10'
+        value={props.percentage}
         text={
-            <>
-              <tspan x="50%" y="50%" dy="-0.2em" style={{ fontSize: '18px'}} className='font-pop font-black'>
+          <>
+            <tspan x="50%" y="50%" dy="-0.1em" style={{ fontSize: '18px'}} className="font-pop font-black">
               {formattedNominal}
-              </tspan>
-              <tspan x="50%" y="50%" dy="1.1em" style={{ fontSize: '7px' }}>
-                remaining
-              </tspan>
-            </>
-          }
+            </tspan>
+            <tspan x="50%" y="50%" dy="1.4em" style={{ fontSize: '7px', color: '#667786' }}>
+              remaining
+            </tspan>
+          </>
+        }
         styles={{
           root: {
             width: '100%',
@@ -38,16 +47,19 @@ function App() {
           },
           path: {
             stroke: '#a4d453', // Color for the progress path
-            strokeWidth: 12, // Thickness of the path
+            strokeWidth: 11, // Thickness of the path
             transition: 'stroke-dashoffset 0.5s ease 0s', // Apply transition to the stroke path
+            filter: 'drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2))'
           },
           text: {
-            fill: '#222', // Text color
-            fontSize: '2px', // Text size
+            fill: '#667786', // Text color
+            textShadow: '4px 4px 8px rgba(0, 0, 0, 0.3)'
           },
           trail: {
-            stroke: '#d6d6d6', // Color for the background circle
+            stroke: '#F8F7F2', // Color for the background circle
             strokeWidth: 10,
+            filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5))'
+
           },
         }}
         animationDuration="0.5s" // Smooth animation over 0.5 
@@ -55,12 +67,13 @@ function App() {
       />
       
       
-      <div style={{ marginTop: '20px' }}>
+      
+      {/* <div style={{ marginTop: '20px' }}>
         <button onClick={increaseProgress}>Increase</button>
         <button onClick={decreaseProgress}>Decrease</button>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-export default App;
+export default Chart;
