@@ -16,6 +16,11 @@ import FoodPage from './FoodList/FoodPage.js';
 import BMICalculator from './Bmi-Calculator/BMIPage.js';
 import TrackerPage from './calorie-tracker/TrackerPage.js';
 import FoodDetailPage from './FoodDetail/FoodDetailPage.js';
+import Profile from './Profile/Profile.js';
+import AddFood from './AddFood/AddFoodPage.js';
+import AddRecipe from './AddRecipe/AddRecipePage.js';
+import EditFood from './EditFood/EditFoodPage.js';
+import EditRecipe from './EditRecipe/EditRecipePage.js';
 
 function App() {
   return (
@@ -59,6 +64,8 @@ function App() {
               <UserProvider>
                 <RegistrationRoute>
                   <HomeAfter/>
+                  {/* <AgeInput></AgeInput> */}
+
                 </RegistrationRoute>
               </UserProvider>
             </ProtectedRoute>}></Route>
@@ -80,12 +87,49 @@ function App() {
                 </RegistrationRoute>
               </UserProvider>
             </ProtectedRoute>}></Route>
+            <Route path='/meal-finder/add-food' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                  <AddFood/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
+
+            <Route path='/meal-finder/add-recipe' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                    <AddRecipe/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
+
+            
             
             <Route path='/meal-finder/detail/:id' element={
             <ProtectedRoute>
               <UserProvider>
                 <RegistrationRoute>
                     <FoodDetailPage/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
+
+            <Route path='/meal-finder/detail/:id/edit-food' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                    <EditFood/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
+
+            <Route path='/meal-finder/detail/:id/edit-recipe' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                    <EditRecipe/>
                 </RegistrationRoute>
               </UserProvider>
             </ProtectedRoute>}></Route>
@@ -108,8 +152,18 @@ function App() {
                 </RegistrationRoute>
               </UserProvider>
             </ProtectedRoute>}></Route>
+            
+            <Route path='/profile' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                  <Profile/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
+
         </Routes>
-      {/* <Footer/> */}
+      <Footer/>
       </div>
     </BrowserRouter>
     

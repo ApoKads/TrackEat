@@ -17,6 +17,18 @@ body{
     box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.15); /* Inner shadow */
     filter: drop-shadow(2px 2px 0px rgb(0 0 0 / 0.1))
   }
+  
+  @layer utilities {
+    .no-spinner::-webkit-outer-spin-button,
+    .no-spinner::-webkit-inner-spin-button {
+      @apply appearance-none;
+    }
+  
+    .no-spinner {
+      @apply [appearance:textfield];
+    }
+  }
+  
   .hamburger-line{
     @apply w-[30px] h-[2.5px] my-2 block bg-black;
   }

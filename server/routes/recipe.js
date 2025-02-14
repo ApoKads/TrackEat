@@ -16,10 +16,48 @@ router.get('/:id', accessValidation,async (req, res) => {
     }
   });
   
-  export default router;
+router.delete('/:id', accessValidation, async (req, res) => {
+    const { id } = req.params;
 
-//   SELECT recipe_id, 
-//        STRING_AGG(f.name, ', ') AS food_names
-// FROM recipe r
-// JOIN foods f ON r.food_id = f.id
-// GROUP BY r.recipe_id;
+    try {
+        const deleteQuery = `
+            DELETE FROM Recipe
+            WHERE recipe_id = $1
+            RETURNING *;
+        `;
+
+        const deletedRecipes = await pool.query(deleteQuery, [id]);
+
+        // if (deletedRecipes.rows.length === 0) {
+        //     return res.status(404).json({ error: 'No recipes found for the given recipe_id' });
+        // }
+
+        res.json({ message: 'Recipes deleted successfully', deletedRecipes: deletedRecipes.rows });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+  // Masukin ke table Recipe
+router.post('/',accessValidation,async(req,res)=>{
+  try{
+    const userId = req.userData.id;
+    const {recipe_id,recipes} = req.body;
+    for (const recipe of recipes) {
+      // const { id } = recipe;
+      // if(recipe === null)console.log('test')
+      console.log(recipe)
+      const result = await pool.query(
+        'INSERT INTO recipe (recipe_id,food_id) VALUES ($1, $2)',
+        [recipe_id,recipe.id]
+      );
+    }
+    res.json({ message: 'Recipes saved successfully' });
+  }catch(err)
+  {
+    console.log('Error fetching data:', err);
+    res.status(500).send('Internal Server Error'); 
+  }
+})
+  export default router;

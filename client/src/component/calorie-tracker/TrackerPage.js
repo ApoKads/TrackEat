@@ -102,25 +102,25 @@ function TrackerPage() {
                     <div className='flex flex-col justify-center items-center'>
                         <h1 className='font-pop text-semibold  text-xl opacity-75'>Carbs</h1>
                         <MacroChart Macro={4} color={'#748DE0'} subValue={totals.carbs} eaten={totals.calories}/>
-                        <h1 className='font-pop text-semibold  text-xl opacity-75'>{totals.carbs} <span className='text-[#7B8B99]'>gr</span></h1>
+                        <h1 className='font-pop text-semibold  text-xl opacity-75'>{totals.carbs.toFixed(2)} <span className='text-[#7B8B99]'>gr</span></h1>
                     </div>
                     <div className='flex flex-col justify-center items-center'>
                         <h1 className='font-pop text-semibold  text-xl opacity-75'>Fat</h1>
                         <MacroChart Macro={9} color={'#F27825'} subValue={totals.fat} eaten={totals.calories}/>
-                        <h1 className='font-pop text-semibold  text-xl opacity-75'>{totals.fat} <span className='text-[#7B8B99]'>gr</span></h1>
+                        <h1 className='font-pop text-semibold  text-xl opacity-75'>{totals.fat.toFixed(2)} <span className='text-[#7B8B99]'>gr</span></h1>
 
                     </div>
                     <div className='flex flex-col justify-center items-center'>
                         <h1 className='font-pop  text-semibold text-xl opacity-75'>Protein</h1>
                         <MacroChart Macro={4} color={'#44B695'} subValue={totals.protein} eaten={totals.calories}/>
-                        <h1 className='font-pop text-semibold  text-xl opacity-75'>{totals.protein} <span className='text-[#7B8B99]'>gr</span></h1>
+                        <h1 className='font-pop text-semibold  text-xl opacity-75'>{totals.protein.toFixed(2)} <span className='text-[#7B8B99]'>gr</span></h1>
                     </div>
                 </div>
                         
             </div>
             <div className='w-full lg:w-1/2 border-solid p-2 sm:p-8 flex flex-col justify-evenly  gap-8 lg:gap-0'>
                     <div className='w-full flex justify-center items-center'>
-                        <h1 className='text-3xl md:text-4xl font-pop font-bold text-[#7B8B99] lg:text-5xl xl:text-6xl tracking-wide my-shadow text-center lg:text-start'>Track every calorie you consume!</h1>
+                        <h1 className='text-3xl md:text-4xl font-pop font-bold text-gray-700 lg:text-5xl xl:text-6xl tracking-wide my-shadow text-center lg:text-start'>Track every calorie you consume!</h1>
                     </div>
 
                     <div className='flex flex-col gap-8 justify-center items-center'>
@@ -130,7 +130,7 @@ function TrackerPage() {
                             </div>
                             <div className='flex flex-col justify-between'>
                                 <h1 className='font-pop text-2xl font-medium '>Daily Goals</h1>
-                                <h1 className='text-2xl sm:text-4xl lg:text-6xl xl:text-7xl font-pop font-bold text-[#667786]' style={{filter: 'drop-shadow(0 2px 2px rgb(0 0 0 / 0.3))'}}>{formattedCalorie}</h1>
+                                <h1 className='text-2xl sm:text-4xl lg:text-6xl xl:text-7xl font-pop font-bold text-gray-700' style={{filter: 'drop-shadow(0 2px 2px rgb(0 0 0 / 0.3))'}}>{formattedCalorie}</h1>
                             </div>
                         </div>
 
@@ -140,14 +140,14 @@ function TrackerPage() {
                             </div>
                             <div className='flex flex-col justify-between'>
                                 <h1 className='font-pop text-2xl font-medium '>Consumed Calories</h1>
-                                <h1 className='text-2xl sm:text-4xl lg:text-6xl xl:text-7xl font-pop font-bold text-[#667786]' style={{filter: 'drop-shadow(0 2px 2px rgb(0 0 0 / 0.3))'}}>{formattedEaten}</h1>
+                                <h1 className='text-2xl sm:text-4xl lg:text-6xl xl:text-7xl font-pop font-bold text-gray-700' style={{filter: 'drop-shadow(0 2px 2px rgb(0 0 0 / 0.3))'}}>{formattedEaten}</h1>
                             </div>
                         </div>
                         
                     </div>
 
                     <div className='flex flex-col items-center justify-center gap-4'>
-                        <h1 className='font-pop text-3xl text-ourLime font-semibold ' style={{filter: 'drop-shadow(0 2px 2px rgb(0 0 0 / 0.1))'}}>Had your meal?</h1>
+                        <h1 className='font-pop text-3xl text-black opacity-90 font-semibold ' style={{filter: 'drop-shadow(0 2px 2px rgb(0 0 0 / 0.1))'}}>Had your meal?</h1>
                         <div className='flex flex-col justify-center items-center w-full gap-2'>
                             <button onClick={handleAddFood} className='bg-white p-2 border-black drop-shadow-xl shadow-inner rounded-xl hover:scale-110 hover:brightness-90 transition duration-300 ease-in-out'> <img src={plus} alt="" /></button>
                             <p>Add Food</p>

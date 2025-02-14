@@ -169,7 +169,7 @@ router.get('/auth/google/callback', async (req, res) => {
             id: user.rows[0].id,
         };
         const secret = process.env.JWT_SECRET;
-        const duration = 60 * 60 * 1;
+        const duration = 60 * 60 * 12;
         const token = jwt.sign(payload, secret, { expiresIn: duration });
 
         // Redirect ke frontend dengan token sebagai query parameter
@@ -185,7 +185,7 @@ router.get('/info', accessValidation, async (req, res) => {
         const id = req.userData.id;
 
         const results = await pool.query(
-            `SELECT id, activity_option, age, email, first_name, goal, google_email, height, last_name, progress_option, selected_sex, weight, weight_option
+            `SELECT *
              FROM users
              WHERE id = $1`,
             [id]

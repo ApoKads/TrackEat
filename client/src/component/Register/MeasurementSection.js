@@ -15,6 +15,12 @@
               setShowError(false)
               props.onNext()
             };
+
+            const handleKeyDown = (e) => {
+                if (e.key === "Enter") {
+                  e.target.blur(); // Menghilangkan fokus dari input
+                }
+              };
       
           return <div className="w-full h-[60vh] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col  gap-2" id="step1">
       
@@ -35,7 +41,14 @@
                   placeholder="Height (in cm)" 
                   className="border border-gray-300 px-4 py-2 mb-2 block w-full rounded-lg focus:ring focus:ring-lime-400 text-gray-800"
                   value={props.height}  // Gunakan props.firstName
-                  onChange={(e) => props.setHeight(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value
+                    if (/^\d*$/.test(value)) {
+                        props.setHeight(value)
+                    }
+                  }}
+                  onKeyDown={handleKeyDown}
+
                   />
               <label className="sr-only" for="weight">Weight (in kg)</label>
               <input 
@@ -44,7 +57,15 @@
                   placeholder="Weight (in kg)" 
                   className="border border-gray-300 px-4 py-2 block w-full rounded-lg focus:ring focus:ring-lime-400 text-gray-800"
                   value={props.weight}  // Gunakan props.lastName
-                  onChange={(e) => props.setWeight(e.target.value)} // Update state di Sections
+                  onChange={(e) =>{
+                    const value = e.target.value
+                    if (/^\d*$/.test(value)) {
+                        props.setWeight(e.target.value)
+                    }
+                    
+                    }
+                  } 
+                  onKeyDown={handleKeyDown}
                   />
               <p id="errortext" ></p>
           </div>

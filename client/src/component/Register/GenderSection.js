@@ -14,6 +14,11 @@ function GenderSection(props)
             props.onNext()
           };
 
+          const handleKeyDown = (e) => {
+            if (e.key === "Enter") {
+              e.target.blur(); // Menghilangkan fokus dari input
+            }
+          };
 
     return <div className="w-full h-[60vh] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col  gap-2">
 
@@ -35,7 +40,14 @@ function GenderSection(props)
             placeholder="Age" 
             className="border border-gray-300 px-4 py-2 block w-full rounded-lg focus:ring focus:ring-lime-400 text-gray-800"
             value={props.Age}  // Gunakan props.firstName
-            onChange={(e) => props.setAge(e.target.value)}
+            onChange={(e) => 
+                {
+                    const value = e.target.value
+                    if (/^\d*$/.test(value)) {
+                        props.setAge(e.target.value)
+                    }
+                }}
+            onKeyDown={handleKeyDown}
             />
     </div>
 
