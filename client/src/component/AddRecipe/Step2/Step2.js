@@ -14,13 +14,10 @@ function Step2(props)
 {
   const location = useLocation();
   const [foods, setFoods] = useState([]);
+  const [filteredFoods, setFilteredFoods] = useState([]); // Data makanan yang difilter
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setpostsPerPage] = useState(15);
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPosts = foods.slice(firstPostIndex,lastPostIndex);
-  console.log(firstPostIndex);
-
+  const [searchTerm, setSearchTerm] = useState(""); // State untuk kata kunci pencarian
     
   const fetchData = async () => {
         try {
@@ -30,23 +27,50 @@ function Step2(props)
                 Authorization: `Bearer ${token}`,
             },
         });
-        console.log(response);
-        setFoods(response.data.rows);
+        const filteredFood = response.data.rows.filter(food => food.type === 0);
+
+        // Set state dengan data yang sudah difilter
+        setFoods(filteredFood);
+        setFilteredFoods(filteredFood);
         } catch (error) {
             console.log('error plis')
         console.error('Error fetching data:', error);
         }
     };
 
+    const handleSearchAndFilter = () => {
+        let filtered = foods;
+        
+        // Filter berdasarkan kata kunci
+        if (searchTerm) {
+          filtered = filtered.filter((food) =>
+            food.name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        }
+    
+        setFilteredFoods(filtered);
+        setCurrentPage(1); // Reset ke halaman pertama setelah pencarian atau filter
+      };
+
     useEffect(()=>{
         // props.handleAddToRecipe(1);
         fetchData();
     },[]);
 
+      useEffect(() => {
+        handleSearchAndFilter();
+      }, [searchTerm]);
+
+      const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = filteredFoods.slice(firstPostIndex, lastPostIndex);
     return (
         <div>
             <div className='w-full flex flex-col lg:flex-row lg:px-12'>
-                <SearchBar/>
+            <SearchBar
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                />
                 <p className='text-base font-pop font-bold italic lg:text-center'>Click the food you want to add to your recipe!</p>
 
             </div>
@@ -56,7 +80,7 @@ function Step2(props)
             <div className='w-full flex justify-center'>
                 <AllFood 
                 currentData={currentPosts}
-                foodLength={foods.length}
+                foodLength={filteredFoods.length}
                 handleAddToRecipe = {props.handleAddToRecipe}
                 handleBack = {props.handleBack}
                 />
@@ -64,7 +88,7 @@ function Step2(props)
 
             <div className="flex justify-center mt-4">
                 <Pagination
-                    totalPosts={foods.length}
+                    totalPosts={filteredFoods.length}
                     postsPerPage={postsPerPage}
                     setCurrentPage={setCurrentPage}
                     currentPage={currentPage}

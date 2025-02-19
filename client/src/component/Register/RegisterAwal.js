@@ -65,7 +65,7 @@ const RegisterAwal = ()=>
             <div className="space-x-4 flex flex-row w-3/4">
             
             <button
-                    onClick={() => window.location.href = 'http://localhost:3000/auth/google'}
+                    onClick={() => window.location.href = 'http://localhost:3000/user/auth/google'}
                     className="flex items-center justify-center w-full px-4 py-2 border-2 border-gray-300 bg-white text-black rounded-md shadow hover:shadow-lg transition-shadow"
                 >
                     <img src={GoogleLogo} alt="Google Logo" className="h-5 w-5 mr-2" /> Create Account with Google
