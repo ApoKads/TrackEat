@@ -21,6 +21,7 @@ import AddFood from './AddFood/AddFoodPage.js';
 import AddRecipe from './AddRecipe/AddRecipePage.js';
 import EditFood from './EditFood/EditFoodPage.js';
 import EditRecipe from './EditRecipe/EditRecipePage.js';
+import SchedulePage from './Schedule/SchedulePage.js';
 
 function App() {
   return (
@@ -158,6 +159,15 @@ function App() {
               <UserProvider>
                 <RegistrationRoute>
                   <Profile/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
+
+            <Route path='/meal-schedule' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                  <SchedulePage/>
                 </RegistrationRoute>
               </UserProvider>
             </ProtectedRoute>}></Route>

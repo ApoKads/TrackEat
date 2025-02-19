@@ -44,10 +44,11 @@ router.post('/',accessValidation,async(req,res)=>{
   try{
     const userId = req.userData.id;
     const {recipe_id,recipes} = req.body;
+    console.log(recipes)
     for (const recipe of recipes) {
-      // const { id } = recipe;
+      const { id } = recipe;
       // if(recipe === null)console.log('test')
-      console.log(recipe)
+      // console.log("test",recipe)
       const result = await pool.query(
         'INSERT INTO recipe (recipe_id,food_id) VALUES ($1, $2)',
         [recipe_id,recipe.id]

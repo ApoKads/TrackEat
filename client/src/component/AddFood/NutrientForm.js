@@ -47,18 +47,17 @@ function NutrientForm({
   };
 
     
-    const updateTempMacro = (type, value) => {
-
-      if (/^\d*$/.test(value)) {
-          if (type === "fat") {
-            setTempFat(value);
-          } else if (type === "carbs") {
-            setTempCarbs(value);
-          } else if (type === "protein") {
-            setTempProtein(value);
-          }
+  const updateTempMacro = (type, value) => {
+    if (/^\d*[,.]?\d*$/.test(value)) {
+      if (type === "fat") {
+        setTempFat(Number(value));
+      } else if (type === "carbs") {
+        setTempCarbs(Number(value));
+      } else if (type === "protein") {
+        setTempProtein(Number(value));
       }
-    };
+    }
+  };
     
    
     const increaseCalories = () => {

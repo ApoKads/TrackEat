@@ -130,7 +130,7 @@ function EditRecipe(){
               },
             });
             const foodData = response.data;
-    
+            console.log(foodData)
             // Isi nilai default pada state
             setFoodName(foodData.name);
             setServingSize(foodData.serving_size);
@@ -157,6 +157,7 @@ function EditRecipe(){
                 step===2 &&
                 <button onClick={handleBack} className="w-20 mb-5 bg-gray-200 px-4 py-2 rounded-lg shadow-md text-lg font-semibold hover:bg-gray-300 transition-transform transform hover:scale-105 active:scale-95">Back</button>
             }
+            
 
             {step === 1 &&
                 <Step1

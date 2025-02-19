@@ -6,6 +6,7 @@ import userRoutes from './routes/user.js'; // Impor router user
 import foodRoutes from './routes/food.js'; // Impor router user
 import trackerRoutes from './routes/tracker.js';
 import  recipeRoutes from './routes/recipe.js';
+import scheduleRoutes from './routes/schedule.js'
 import { config } from 'dotenv';
 
 // Load environment variables
@@ -24,6 +25,7 @@ app.use('/user', userRoutes);
 app.use('/food',foodRoutes);
 app.use('/calorie-tracker',trackerRoutes);
 app.use('/recipe',recipeRoutes);
+app.use('/schedule',scheduleRoutes);
 
 // Route dasar untuk mengecek apakah server berjalan
 app.get('/', (req, res) => {
