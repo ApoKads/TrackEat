@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
 import Home from './Home-Before/Home';
 import Footer from './Footer';
-import AboutUs from './About-us/AboutUs';
+import AboutUsShow from './About-us/AboutUsShow.js';
 import ProtectedRoute from './Route/ProtectedRoute.js';
 import RegistrationRoute from './Route/RegistrationRoute.js';
 import PublicRoute from './Route/PublicRoute.js';
@@ -78,7 +78,7 @@ function App() {
             <ProtectedRoute>
               <UserProvider>
                 <RegistrationRoute>
-                  <AboutUs/>
+                  <AboutUsShow/>
                 </RegistrationRoute>
               </UserProvider>
               </ProtectedRoute>
