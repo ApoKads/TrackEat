@@ -90,7 +90,7 @@ function TrackerPage() {
   return (
     <div>
         <Header/>
-        <div className='w-full flex flex-col gap-8 lg:flex-row lg:gap-0'>
+        <div className='w-full flex flex-col gap-8 lg:flex-row lg:gap-0 mt-10 sm:mt-0'>
             <div className='w-full lg:w-1/2  p-2 sm:p-8 flex flex-col justify-center items-center gap-4 '>
                 <h1 className='font-pop font-semibold text-4xl opacity-75'>Daily Goals</h1>
                 <Chart
@@ -118,7 +118,7 @@ function TrackerPage() {
                 </div>
                         
             </div>
-            <div className='w-full lg:w-1/2 border-solid p-2 sm:p-8 flex flex-col justify-evenly  gap-8 lg:gap-0'>
+            <div className='w-full  lg:w-1/2 border-solid p-2 px-8 mt-10 sm:mt-0 sm:p-8 flex flex-col justify-evenly  gap-16 sm:gap-8 lg:gap-0'>
                     <div className='w-full flex justify-center items-center'>
                         <h1 className='text-3xl md:text-4xl font-pop font-bold text-gray-700 lg:text-5xl xl:text-6xl tracking-wide my-shadow text-center lg:text-start'>Track every calorie you consume!</h1>
                     </div>
@@ -147,7 +147,7 @@ function TrackerPage() {
                     </div>
 
                     <div className='flex flex-col items-center justify-center gap-4'>
-                        <h1 className='font-pop text-3xl text-black opacity-90 font-semibold ' style={{filter: 'drop-shadow(0 2px 2px rgb(0 0 0 / 0.1))'}}>Had your meal?</h1>
+                        <h1 className='font-pop text-xl sm:text-3xl text-black opacity-90 font-semibold ' style={{filter: 'drop-shadow(0 2px 2px rgb(0 0 0 / 0.1))'}}>Had your meal?</h1>
                         <div className='flex flex-col justify-center items-center w-full gap-2'>
                             <button onClick={handleAddFood} className='bg-white p-2 border-black drop-shadow-xl shadow-inner rounded-xl hover:scale-110 hover:brightness-90 transition duration-300 ease-in-out'> <img src={plus} alt="" /></button>
                             <p>Add Food</p>

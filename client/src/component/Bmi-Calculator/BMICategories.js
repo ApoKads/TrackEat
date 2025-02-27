@@ -10,14 +10,14 @@ const BMICategories = () => {
       marginTop: 'mt-16',
     },
     {
-      range: '< 18.5 - 24.9',
+      range: ' 18.5 - 24.9',
       label1: 'Normal',
       label2: '',
       bgColor: 'bg-ourLime',
       marginTop: 'mt-10',
     },
     {
-      range: '< 25.0 - 29.9',
+      range: '25.0 - 29.9',
       label1: 'Over',
       label2: 'weight',
       bgColor: 'bg-ourOrange',

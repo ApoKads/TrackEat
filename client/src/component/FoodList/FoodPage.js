@@ -71,29 +71,31 @@ function FoodPage() {
   return (
     <div>
       <Header />
-      <div className="w-full flex flex-col lg:flex-row lg:px-12">
+      <div className="w-full flex flex-col sm:flex-row lg:px-12">
         <SearchBar
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           filterType={filterType}
           setFilterType={setFilterType}
         />
-        <div className="flex lg:flex-col p-4 justify-between items-center gap-4">
+        <div className="flex sm:flex-col p-4 justify-between items-center gap-4">
           <p className="text-base font-pop font-light italic lg:text-center">
             Can't find what you're looking for?
           </p>
-          <Link
-            to="add-food"
-            className="text-sm w-36 font-medium font-pop text-center bg-ourLime py-2 px-4 rounded-lg hover:scale-110 duration-300 ease-in-out"
-          >
-            Add new food
-          </Link>
-          <Link
-            to="add-recipe"
-            className="text-sm w-36 text-white font-medium font-pop text-center bg-ourPink py-2 px-4 rounded-lg hover:scale-110 duration-300 ease-in-out"
-          >
-            Add new recipe
-          </Link>
+          <div className="flex sm:flex-col gap-2 sm:gap-4">
+            <Link
+              to="add-food"
+              className="text-sm w-[5.5rem] sm:w-36 sm:font-medium font-pop text-center bg-ourLime py-2 sm:px-4 rounded-lg hover:scale-110 duration-300 ease-in-out"
+              >
+              Add new food
+            </Link>
+            <Link
+              to="add-recipe"
+              className="text-sm w-[5.5rem] sm:w-36 text-white sm:font-medium font-pop text-center bg-ourPink py-2 sm:px-4 rounded-lg hover:scale-110 duration-300 ease-in-out"
+              >
+              Add new recipe
+            </Link>
+          </div>
         </div>
       </div>
 

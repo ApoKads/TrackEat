@@ -6,11 +6,13 @@ import userRoutes from './routes/user.js'; // Impor router user
 import foodRoutes from './routes/food.js'; // Impor router user
 import trackerRoutes from './routes/tracker.js';
 import  recipeRoutes from './routes/recipe.js';
-import scheduleRoutes from './routes/schedule.js'
+import scheduleRoutes from './routes/schedule.js';
+import sectionRoutes from './routes/section.js';
+import calendarRoutes from './routes/calendar.js';
 import { config } from 'dotenv';
 
 // Load environment variables
-config();
+config(); 
 
 const app = express();
 const port = process.env.PORT || 3000; // Gunakan port dari environment variable atau default 3000
@@ -18,6 +20,9 @@ const port = process.env.PORT || 3000; // Gunakan port dari environment variable
 // Middleware
 app.use(express.json()); // Untuk parsing JSON request body
 app.use(cors()); // Enable CORS
+
+
+
 app.use(bodyParser.json()); // Untuk parsing JSON request body
 
 // Gunakan router untuk route yang berhubungan dengan user
@@ -26,6 +31,8 @@ app.use('/food',foodRoutes);
 app.use('/calorie-tracker',trackerRoutes);
 app.use('/recipe',recipeRoutes);
 app.use('/schedule',scheduleRoutes);
+app.use('/section',sectionRoutes);
+app.use('/calendar',calendarRoutes);
 
 // Route dasar untuk mengecek apakah server berjalan
 app.get('/', (req, res) => {
@@ -36,11 +43,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
-
-// cd backend
-// npm init -y
-// npm i express cors body-parser dotenv pg ->Backend
-
-
-// npm i axios
-// 

@@ -22,6 +22,9 @@ import AddRecipe from './AddRecipe/AddRecipePage.js';
 import EditFood from './EditFood/EditFoodPage.js';
 import EditRecipe from './EditRecipe/EditRecipePage.js';
 import SchedulePage from './Schedule/SchedulePage.js';
+import ScheduleDetailPage from './ScheduleDetail/ScheduleDetailPage.js';
+import ScheduleAdd from './ScheduleAdd/ScheduleAdd.js';
+import ScheduleEdit from './ScheduleEdit/ScheduleEdit.js';
 
 function App() {
   return (
@@ -107,7 +110,6 @@ function App() {
             </ProtectedRoute>}></Route>
 
             
-            
             <Route path='/meal-finder/detail/:id' element={
             <ProtectedRoute>
               <UserProvider>
@@ -168,6 +170,33 @@ function App() {
               <UserProvider>
                 <RegistrationRoute>
                   <SchedulePage/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
+
+            <Route path='/meal-schedule/detail/:id' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                  <ScheduleDetailPage/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
+
+            <Route path='/meal-schedule/detail/:id/edit' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                  <ScheduleEdit/>
+                </RegistrationRoute>
+              </UserProvider>
+            </ProtectedRoute>}></Route>
+
+            <Route path='/meal-schedule/add-schedule' element={
+            <ProtectedRoute>
+              <UserProvider>
+                <RegistrationRoute>
+                  <ScheduleAdd/>
                 </RegistrationRoute>
               </UserProvider>
             </ProtectedRoute>}></Route>

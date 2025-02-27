@@ -4,7 +4,7 @@ import accessValidation from './middleware.js';
 
 const router = express.Router();
 
-router.get('/', accessValidation,async (req, res) => {
+router.get('/', accessValidation, async(req, res) => {
     try {
       const id = req.userData.id;
       const results = await pool.query('SELECT * FROM foods where user_id in (0 , $1)',[id]);
@@ -27,47 +27,7 @@ router.get('/', accessValidation,async (req, res) => {
     }
   });
 
-  // router.put('/:id', accessValidation, async (req, res) => {
-  //   const { id } = req.params;
-  //   const { name, serving_size, description, calories, fat, protein, carbs } = req.body;
-  //   console.log(name,serving_size,description,calories,fat,protein,carbs)
-  //   try {
-  //     const updateQuery = `
-  //       UPDATE Foods
-  //       SET 
-  //         name = $1,
-  //         serving_size = $2,
-  //         description = $3,
-  //         calories = $4,
-  //         fat = $5,
-  //         protein = $6,
-  //         carbs = $7
-  //       WHERE 
-  //         id = $8
-  //       RETURNING *;
-  //     `;
-  
-  //     const updatedFood = await pool.query(updateQuery, [
-  //       name,
-  //       serving_size,
-  //       description,
-  //       calories,
-  //       fat,
-  //       protein,
-  //       carbs,
-  //       id,
-  //     ]);
-  
-  //     if (updatedFood.rows.length === 0) {
-  //       return res.status(404).json({ error: 'Food not found' });
-  //     }
-  
-  //     res.json(updatedFood.rows[0]);
-  //   } catch (err) {
-  //     console.error(err);
-  //     res.status(500).json({ error: 'Internal server error' });
-  //   }
-  // });
+ 
 
   router.put('/:id', accessValidation, async (req, res) => {
     const { id } = req.params;
@@ -166,13 +126,14 @@ router.get('/', accessValidation,async (req, res) => {
     try {
       // Mulai transaksi
       await pool.query('BEGIN');
-  
+
       // Cek apakah food terkait dengan recipe
       const checkRecipeQuery = `
         SELECT recipe_id,food_id,calories,protein,carbs,fat
         FROM recipe r join foods f on r.food_id = f.id 
 		    where food_id = $1
       `;
+      
       const recipeResult = await pool.query(checkRecipeQuery, [id]);
       // console.log(recipeResult.rows)
       if (recipeResult.rows.length > 0) {

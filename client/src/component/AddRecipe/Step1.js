@@ -49,8 +49,8 @@ function Step1({
                     type="text"
                     value={servingSize}
                     onChange={(e) => setServingSize(e.target.value)}
-                    placeholder="Enter serving size (Example : 2 cups / 1 spoon / 100 gr)"
-                    className="w-full p-2 border rounded"
+                    placeholder="(Example : 2 cups / 1 spoon / 100 gr)"
+                    className="w-full p-2 border rounded "
                 />
                 </div>
             </div>
@@ -93,7 +93,7 @@ function Step1({
               </ul>
                 <button
                         onClick={handleAddFood}
-                        className="text-lg bg-[#F8F7F2] px-20 py-3 hover:bg-ourLime rounded-xl card1 transition duration-300 hover:scale-105 active:scale-95"
+                        className="text-lg bg-[#F8F7F2] md:px-20 py-3 hover:bg-ourLime rounded-xl card1 transition duration-300 hover:scale-105 active:scale-95"
                         >
                         {'Add your food here'}
                 </button>
@@ -106,21 +106,21 @@ function Step1({
             <div className="card1 p-8 bg-white bg-opacity-90 rounded-lg shadow-lg ">
                 <div className="flex flex-col gap-4 items-center ">
                     <h3 className="text-gray-700 font-bold text-3xl">Nutrient Details</h3>
-                        <div className="card1 shadow-inner w-3/4 bg-blue-50 flex justify-evenly items-center p-4">
+                        <div className="card1 shadow-inner w-full sm:w-3/4 bg-blue-50 flex justify-evenly items-center p-4">
                             <MacroChart Macro={4} color={'#748DE0'} subValue={carbs} eaten={calories} />
                             <div className="flex flex-col items-center">
                             <p className="text-black font-medium font-pop text-xl md:text-3xl">{carbs.toFixed(2)}<span className="text-base md:text-xl"> gr</span></p>
                             <p className="text-gray-500 text-lg">Carbs</p>
                             </div>
                         </div>
-                        <div className="card1 shadow-inner w-3/4 bg-orange-100 flex justify-evenly items-center p-4">
+                        <div className="card1 shadow-inner w-full sm:w-3/4 bg-orange-100 flex justify-evenly items-center p-4">
                             <MacroChart Macro={9} color={'#F27825'} subValue={fat} eaten={calories} />
                             <div className="flex flex-col items-center">
                             <p className="text-black font-medium font-pop text-xl md:text-3xl">{fat.toFixed(2)}<span className="text-base md:text-xl"> gr</span></p>
                             <p className="text-gray-500 text-lg">Fat</p>
                             </div>
                         </div>
-                        <div className="card1 shadow-inner w-3/4 bg-green-100 flex justify-evenly items-center p-4">
+                        <div className="card1 shadow-inner w-full sm:w-3/4 bg-green-100 flex justify-evenly items-center p-4">
                             <MacroChart Macro={4} color={'#44B695'} subValue={protein} eaten={calories} />
                             <div className="flex flex-col items-center">
                             <p className="text-black font-medium font-pop text-xl md:text-3xl">{protein.toFixed(2)}<span className="text-base md:text-xl"> gr</span></p>
@@ -135,7 +135,7 @@ function Step1({
 
                             <button
                             onClick={handleSave}
-                            className="text-lg bg-[#F8F7F2] px-20 py-3 hover:bg-ourLime rounded-xl card1 transition duration-300 hover:scale-105 active:scale-95"
+                            className="text-lg bg-[#F8F7F2]  md:px-20 py-3 hover:bg-ourLime rounded-xl card1 transition duration-300 hover:scale-105 active:scale-95"
                             >
                             {'Save to your recipe'}
                             </button>

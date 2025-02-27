@@ -18,7 +18,7 @@ function FourFitur(){
                         </Link>
                     </div>
                     <div className='flex justify-center items-center'>
-                        <Link to="meal-schedule" className='w-[90%] flex items-center justify-center'>
+                        <Link to="/meal-schedule" className='w-[90%] flex items-center justify-center'>
                             <div className='p-2 w-full rounded-3xl md:w-48 md:h-48 lg:w-56 lg:h-56 md:rounded-full bg-ourPink self-center flex md:flex-col items-center  justify-around md:justify-end shadow-lg group/Health hover:scale-110 hover:cursor-pointer duration-300 transition hover:brightness-95'>
                                 <h2 className='text-lg font-pop font-black text-background lg:text-3xl text-center'>Meal Schedule</h2>
                                 <img src={imgMeal} alt="imgMeal" className='w-20 h-20 md:h-28 md:w-28 lg:w-32 lg:h-32'/>

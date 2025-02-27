@@ -5,25 +5,28 @@ import jwt from 'jsonwebtoken';
 import { google } from 'googleapis';
 import pool from '../db.js'; 
 import accessValidation from './middleware.js';
+import { oauth2Client, authorizationUrl } from '../oauthConfig.js';
 
 const router = express.Router();
 
-const oauth2Client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-    process.env.CALLBACK_URL,
-);
+// const oauth2Client = new google.auth.OAuth2(
+//     process.env.GOOGLE_CLIENT_ID,
+//     process.env.GOOGLE_CLIENT_SECRET,
+//     process.env.CALLBACK_URL,
+// );
 
-const scope = [
-    `https://www.googleapis.com/auth/userinfo.email`,
-    `https://www.googleapis.com/auth/userinfo.profile`
-];
+// const scope = [
+//     `https://www.googleapis.com/auth/userinfo.email`,
+//     `https://www.googleapis.com/auth/userinfo.profile`,
+//     `https://www.googleapis.com/auth/calendar`, // Scope untuk Google Calendar API
+//     `https://www.googleapis.com/auth/calendar.events`,
+// ];
 
-const authorizationUrl = oauth2Client.generateAuthUrl({
-    access_type: 'offline',
-    scope: scope,
-    include_granted_scopes: true,
-});
+// const authorizationUrl = oauth2Client.generateAuthUrl({
+//     access_type: 'offline',
+//     scope: scope,
+//     include_granted_scopes: true,
+// });
 
 router.post("/update", async (req, res) => {
     try {
@@ -161,7 +164,15 @@ router.get('/auth/google/callback', async (req, res) => {
 
         if (user.rowCount === 0) {
             user = await pool.query(
-                `INSERT INTO users (google_email) VALUES ($1) RETURNING *`, [data.email]
+                `INSERT INTO users (google_email, refresh_token) VALUES ($1, $2) RETURNING *`,
+                [data.email, tokens.refresh_token] // Simpan refresh_token
+            );
+        } else {
+            // Update refresh_token jika pengguna sudah ada
+            // console.log(tokens)
+            user = await pool.query(
+                `UPDATE users SET refresh_token = $1 WHERE google_email = $2 RETURNING *`,
+                [tokens.refresh_token, data.email]
             );
         }
 

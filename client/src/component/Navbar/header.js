@@ -52,7 +52,7 @@ function Header() {
     return (
         <div>
             <header ref={headerRef} className={`w-full navbar-fixed`}>
-                <div className="bg-orange-100 flex justify-between w-full shadow-lg">
+                <div className="bg-[#f9e1cb] flex justify-between w-full shadow-lg">
                     <div className="flex h-15 items-center py-2 px-3 group/logo hover:cursor-pointer">
                         <img src={logo} alt="LogoPink" className="h-[64px] group-hover/logo:scale-125 transition duration-300 ease-in-out" />
                     </div>

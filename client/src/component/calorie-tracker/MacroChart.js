@@ -19,7 +19,7 @@ function MacroChart({ eaten, subValue, Macro, color, width = 36, height = 36, mo
   }, [eaten, subValue]);
 
   return (
-    <div className={`w-20 h-20 sm:w-36 sm:h-36 justify-center items-center flex-col`}>
+    <div className={`w-[6.5rem] h-[6.5rem] sm:w-36 sm:h-36 justify-center items-center flex-col`}>
       <CircularProgressbar
         className='flex items-center justify-center p-2 overflow-visible z-10 font-pop font-semibold'
         value={value}

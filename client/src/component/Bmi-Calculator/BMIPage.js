@@ -90,7 +90,7 @@ const BMICalculator = () => {
               <GenderSelection selectedSex={selectedSex} setSelectedSex={setSelectedSex} />
             </div>
 
-            <div className="space-y-4 w-80 justify-center items-center flex flex-col">
+            <div className="space-y-4 w-80 justify-center items-center flex flex-col ">
               <label htmlFor="height" className="block text-lg font-bold mb-1">Height</label>
               <input 
                 type="number" 

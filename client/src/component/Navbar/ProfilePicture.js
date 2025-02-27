@@ -70,7 +70,7 @@ function Test2({ isOpen, onClose }) {
                 e.preventDefault();
                 handleNavigate("/goal");
             }}>
-                Goal
+                Account Settings
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onMouseDown={(e) => {
