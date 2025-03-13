@@ -48,7 +48,20 @@ const BMICalculator = () => {
   const [weight, setWeight] = useState('');
   const [bmiResult, setBmiResult] = useState(null);
 
+  const validateInput = (value) => {
+    const numValue = Number(value);
+    if (isNaN(numValue) || numValue < 0 || numValue > 999) {
+      return false;
+    }
+    return true;
+  };
+
+
   const handleCalculate = () => {
+    if (!validateInput(age) || !validateInput(height) || !validateInput(weight)) {
+      alert("Please enter valid values (0-999) for age, height, and weight.");
+      return;
+    }
     const result = CalculateBMI(height, weight);
     setBmiResult(result);
   };

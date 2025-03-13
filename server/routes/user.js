@@ -41,7 +41,9 @@ router.post("/update", async (req, res) => {
             height,
             ActivityOption,
             ProgressOption,
-            goal
+            goal,
+            dailyCalories,
+            profileImage
         } = req.body;
         const result = await pool.query(
                 `UPDATE users
@@ -54,10 +56,12 @@ router.post("/update", async (req, res) => {
                 height = $7, 
                 activity_option = $8, 
                 progress_option = $9, 
-                goal = $10
+                goal = $10,
+                dailyCalories = $12,
+                imageurl = $13
             WHERE id = $11
             RETURNING *`,
-            [firstName, lastName, selectedSex, Age, WeightOption, weight, height, ActivityOption, ProgressOption, goal, id]
+            [firstName, lastName, selectedSex, Age, WeightOption, weight, height, ActivityOption, ProgressOption, goal, id,dailyCalories,profileImage]
         );
 
         if (result.rows.length === 0) {
@@ -78,6 +82,15 @@ router.post('/register', async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({ error: 'Email and Password are required' });
         }
+
+        const checkUser = await pool.query(
+            `SELECT * FROM users WHERE email = $1`, [email]
+        );
+
+        if (checkUser.rows.length > 0) {
+            return res.status(400).json({ error: 'Email already registered' });
+        }
+        
         const result = await pool.query(
             `INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *`, [email, hashedPassword]
         );
@@ -201,7 +214,7 @@ router.get('/info', accessValidation, async (req, res) => {
              WHERE id = $1`,
             [id]
         );
-
+        // console.log("test",results)
         res.status(200).json({ data: results.rows[0] });
     } catch (err) {
         console.error(err);

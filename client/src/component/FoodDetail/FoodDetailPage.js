@@ -139,6 +139,13 @@ function FoodDetailPage(){
       navigate('/meal-finder')
       // delete 
     }
+
+    useEffect(()=>{
+      if(quantity>99){
+        setQuantity(99);
+      }
+    },[quantity])
+
     return(
     <div>
       {/* Custom Confirmation Box */}
@@ -178,7 +185,7 @@ function FoodDetailPage(){
           <button onClick={()=>{navigate('/meal-finder')}} className="w-20 bg-gray-200 px-4 py-2 rounded-lg shadow-md text-lg font-semibold hover:bg-gray-300 transition-transform transform hover:scale-105 active:scale-95">Back</button>
           {food.user_id!==0 && (<div className="flex gap-4">
             <button onClick={showPopUp}
-              className="flex justify-center items-center rounded-md bg-ourPink text-white text-sm sm:text-base sm:px-4 sm:py-2 w-24 sm:w-32 hover:scale-105 active:scale-95 transition duration-300 ease-in-out"
+              className="flex justify-center items-center rounded-md bg-[#cd2a2a] text-white text-sm sm:text-base sm:px-4 sm:py-2 w-24 sm:w-32 hover:scale-105 active:scale-95 transition duration-300 ease-in-out"
               >
               Delete Food
             </button>
@@ -202,7 +209,7 @@ function FoodDetailPage(){
 
               <div className="card2 p-8 bg-white bg-opacity-90 rounded-lg shadow-lg">
                   <h3 className="text-gray-700 font-semibold text-xl">Description</h3>
-                  <p className="text-gray-600 text-lg mt-2 h-32 max-h-96 overflow-y-auto">{food.description}</p>
+                  <p className="text-gray-600 text-lg mt-2 min-h-32 max-h-96 overflow-y-auto">{food.description}</p>
               </div>
 
 

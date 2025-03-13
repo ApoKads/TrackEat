@@ -21,7 +21,13 @@ const RegisterAwal = ()=>
 
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
-    
+        
+        if (password.length < 10) {
+            setMessage('Password must be at least 10 characters long.');
+            setShowError(true);
+            return;
+        }
+
         try {
             console.log(email, password); // Log email dan password untuk debugging
             const response = await axios.post('/user/register', { email, password });
@@ -33,7 +39,7 @@ const RegisterAwal = ()=>
             }
         } catch (error) {
             if (error.response) {
-                setMessage(error.response.data.message || 'Registration failed');
+                setMessage(error.response.data.error || 'Registration failed');
             } else {
                 setMessage('Something went wrong. Please try again.');
             }
@@ -84,9 +90,11 @@ const RegisterAwal = ()=>
                 <p className="text-xs text-gray-500 mt-2">Must be at least 10 characters, no spaces.</p>
 
                 {/* Error Message */}
-                <div className="p-3 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 hidden" role="alert" id='MessageError'>
-                <span className="font-medium">Create Account Failed!</span> The email already been registered!.
-                </div>
+                {showError && (
+                        <div className="p-3 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                            <span className="font-medium">Error!</span> {message}
+                        </div>
+                )}
                 
 
                 <div className="flex flex-col items-center justify-center">

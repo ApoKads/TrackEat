@@ -29,6 +29,9 @@ function Step1({
     handleDelete
 })
 {
+    const maxLength = 28; // Maksimal panjang input
+    const maxLengthDesc = 1023; // Maksimal panjang input
+
     return<div className="w-full  flex flex-col p-4 gap-2">
     <div className="flex flex-col lg:flex-row gap-12 justify-center items-center lg:items-start min-h-screen relative p-2 sm:p-6 lg:p-8 ">
         <div className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg space-y-6">
@@ -40,7 +43,7 @@ function Step1({
                     onChange={(e) => setFoodName(e.target.value)}
                     placeholder="Enter Recipe name"
                     className="w-full p-2 border rounded"
-                    
+                    maxLength={maxLength}
                 />
                 <p className="text-gray-500 text-lg">1 portion</p>
                 <div className="mt-4">
@@ -51,6 +54,8 @@ function Step1({
                     onChange={(e) => setServingSize(e.target.value)}
                     placeholder="(Example : 2 cups / 1 spoon / 100 gr)"
                     className="w-full p-2 border rounded "
+                    maxLength={maxLength}
+
                 />
                 </div>
             </div>
@@ -63,6 +68,8 @@ function Step1({
                     placeholder="Enter description"
                     className="w-full p-2 border rounded h-52"
                     rows={3}
+                    maxLength={maxLengthDesc}
+
                 />
             </div>
 

@@ -13,7 +13,7 @@ function GoalSection(props)
             props.onNext()
           };
     
-        return <div className="w-full h-[60vh] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col  gap-2">
+        return <div className="w-full h-[32rem] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col  gap-2">
     
         <div className="w-full h-10 bg-lime-400"></div>
         <div className="flex flex-col gap-1">

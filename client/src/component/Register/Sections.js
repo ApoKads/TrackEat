@@ -37,6 +37,7 @@ function Sections() {
   const [ProgressOption, setProgressOption] = useState("");
   const [goal, setGoal] = useState(0);
   const [dailyCalories, setDailyCalories] = useState(0);
+  const [month,setMonth] = useState(0);
   const navigate = useNavigate();
 
   const [step, setStep] = useState(0);
@@ -56,6 +57,7 @@ function Sections() {
         ProgressOption,
         goal,
         dailyCalories,
+        profileImage:"https://res.cloudinary.com/dl5gaqv9e/image/upload/v1741318898/ProfilePict/lkelrzupv28a7mvk4val.png"
       });
 
       console.log("Response:", response.data);
@@ -64,45 +66,6 @@ function Sections() {
     } catch (error) {
       console.error("Error updating user data:", error);
       alert("Failed to update user data. Please try again.");
-    }
-  };
-
-  const handleNext = () => {
-    if (step === 7) {
-      handleSubmit();
-    } else if (step === 6) {
-      // Hitung kalori harian sebelum pindah ke Step 7
-      calculateDailyCalories();
-      setStep(step + 1);
-    } else {
-      // Skip Step 4 dan Step 6 jika WeightOption adalah "Maintain"
-      if (WeightOption === "Maintain") {
-        if (step === 3) {
-          setStep(5); // Langsung ke Step 5 (ActivitySection)
-        } else if (step === 5) {
-          setStep(7); // Langsung ke Step 7 (ConfirmationSection)
-        } else {
-          setStep(step + 1);
-        }
-      } else {
-        setStep(step + 1);
-      }
-    }
-  };
-
-  const handlePrev = () => {
-    if (step === 0) return;
-    // Skip Step 4 dan Step 6 jika WeightOption adalah "Maintain"
-    if (WeightOption === "Maintain") {
-      if (step === 5) {
-        setStep(3); // Kembali ke Step 3 (MeasurementSection)
-      } else if (step === 7) {
-        setStep(5); // Kembali ke Step 5 (ActivitySection)
-      } else {
-        setStep(step - 1);
-      }
-    } else {
-      setStep(step - 1);
     }
   };
 
@@ -148,13 +111,83 @@ function Sections() {
     }
 
     const dailyCalories = TDEE + calorieAdjustment;
-    setDailyCalories(dailyCalories);
+    setDailyCalories(dailyCalories.toFixed(2));
   };
+
+  const calculateMonth = () => {
+    if (WeightOption === "Maintain") {
+      setMonth(0); // Jika Maintain, durasi bulan = 0
+      return;
+    }
+
+    const selisih = Math.abs(goal - weight); // Selisih berat badan
+    let durationInWeeks;
+
+    if (ProgressOption === "0.25") {
+      durationInWeeks = selisih / 0.25; // Durasi dalam minggu (0.25 kg/minggu)
+    } else if (ProgressOption === "0.5") {
+      durationInWeeks = selisih / 0.5; // Durasi dalam minggu (0.5 kg/minggu)
+    } else {
+      durationInWeeks = 0;
+    }
+
+    const durationInMonths = durationInWeeks / 4; // Konversi minggu ke bulan
+    setMonth(Math.ceil(durationInMonths)); // Bulatkan ke atas
+  };
+
+  const handleNext = () => {
+    if (step === 7) {
+      handleSubmit();
+    } else if (step === 6) {
+      // Hitung kalori harian sebelum pindah ke Step 7
+      calculateDailyCalories();
+      calculateMonth();
+      setStep(step + 1);
+    } else {
+      // Skip Step 4 dan Step 6 jika WeightOption adalah "Maintain"
+      if (WeightOption === "Maintain") {
+        if (step === 3) {
+          setStep(5); // Langsung ke Step 5 (ActivitySection)
+        } else if (step === 5) {
+          setMonth(0);
+          setStep(7); // Langsung ke Step 7 (ConfirmationSection)
+        } else {
+          setStep(step + 1);
+        }
+      } else {
+        setStep(step + 1);
+      }
+    }
+  };
+
+  const handlePrev = () => {
+    if (step === 0) return;
+    // Skip Step 4 dan Step 6 jika WeightOption adalah "Maintain"
+    if (WeightOption === "Maintain") {
+      if (step === 5) {
+        setStep(3); // Kembali ke Step 3 (MeasurementSection)
+      } else if (step === 7) {
+        setStep(5); // Kembali ke Step 5 (ActivitySection)
+      } else {
+        setStep(step - 1);
+      }
+    } else {
+      setStep(step - 1);
+    }
+  };
+
+  
+  useEffect(()=>{
+    if(step===7){
+      calculateDailyCalories()
+    }
+  },[step])
 
   useEffect(() => {
     // Jika WeightOption adalah "Maintain", set goal sama dengan weight
     if (WeightOption === "Maintain") {
       setGoal(weight);
+      setProgressOption("0.0")
     }
   }, [WeightOption, weight]);
 
@@ -169,6 +202,7 @@ function Sections() {
     console.log("Progress Option: ", ProgressOption);
     console.log("Goal:", goal);
     console.log("Daily Calories:", dailyCalories);
+    console.log("Month",month);
   });
 
   const fetchUserData = async () => {
@@ -265,6 +299,7 @@ function Sections() {
         <ConfirmationSection
           onNext={handleNext}
           onPrev={handlePrev}
+          month = {month}
           dailyCalories={dailyCalories}
         />
       )}

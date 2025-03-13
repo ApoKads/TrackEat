@@ -26,7 +26,7 @@ router.post('/', accessValidation, async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
+  
 // Endpoint untuk mendapatkan total nutrisi hari ini
 router.get('/today-nutrition/:user_id',accessValidation, async (req, res) => {
   const { user_id } = req.params;

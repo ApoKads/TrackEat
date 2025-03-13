@@ -9,7 +9,7 @@ import Logo from '../assets/images/TrackEatFooter.jpg';
 
 function Footer () {
   return (
-    <div className='mt-64'>
+    <div className='mt-96'>
 
     <footer className="flex flex-row bg-white border-t border-gray-200 w-full gap-y-5">
       <div className="w-full mx-auto flex flex-col md:flex-row justify-start gap-x-20 items-center p-5 gap-y-5 md:gap-y-0">

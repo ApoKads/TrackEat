@@ -3,14 +3,14 @@ import React ,{useState} from "react";
 function ConfirmationSection(props)
 {
     
-    return <div className="w-full h-[50vh] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col justify-between  gap-2" id="step1">
+    return <div className="w-full h-[24rem] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col justify-between  gap-2" id="step1">
 
 
     <div className="w-full h-10 bg-lime-400"></div>
     <div className="flex flex-col gap-1">
         <h2 className="text-2xl font-bold text-black mb-4">Reach your goal within</h2>
         <p className="text-3xl text-gray-600 mb-4">
-            6 Months
+        {props.month} Months
         </p>
         <div className="text-center font-bold text-black mb-4">We have calculated and this is the best recommendation for you to reach your goal!</div>
     </div>

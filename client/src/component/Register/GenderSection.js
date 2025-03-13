@@ -3,16 +3,32 @@ import TombolGender from "./TombolGender";
 function GenderSection(props)
 {
     const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     const thisNext = () => {
-            
-            if(!props.Age || !props.selectedSex)
-            {
-                setShowError(true)
-                return;
-            }
-            setShowError(false)
-            props.onNext()
-          };
+        // Validasi apakah Age dan selectedSex sudah diisi
+        if (!props.Age && !props.selectedSex) {
+            setErrorMessage('Age and sex must be filled.');
+            setShowError(true);
+            return;
+        }
+
+        if (!props.Age) {
+            setErrorMessage('Age must be filled.');
+            setShowError(true);
+            return;
+        }
+
+        if (!props.selectedSex) {
+            setErrorMessage('Please select your sex.');
+            setShowError(true);
+            return;
+        }
+
+        // Jika validasi berhasil, lanjutkan ke langkah berikutnya
+        setShowError(false);
+        props.onNext();
+    };
 
           const handleKeyDown = (e) => {
             if (e.key === "Enter") {
@@ -20,7 +36,7 @@ function GenderSection(props)
             }
           };
 
-    return <div className="w-full h-[60vh] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col  gap-2">
+    return <div className="w-full h-[32rem] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col  gap-2">
 
     <div className="w-full h-10 bg-lime-400"></div>
     <div className="flex flex-col gap-1 ">
@@ -43,7 +59,7 @@ function GenderSection(props)
             onChange={(e) => 
                 {
                     const value = e.target.value
-                    if (/^\d*$/.test(value)) {
+                    if (/^\d*$/.test(value) && value <= 125) {
                         props.setAge(e.target.value)
                     }
                 }}
@@ -52,7 +68,7 @@ function GenderSection(props)
     </div>
 
     <div className={`p-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400 w-3/4 self-center text-center ${showError ? 'block' : 'hidden'}`} role="alert">
-  <span className="font-medium">Attention!</span> All of the area must be filled.
+  <span className="font-medium">Attention!</span> {errorMessage}
 </div>
 
 {/*  */}

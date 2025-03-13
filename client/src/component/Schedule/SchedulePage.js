@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ScheduleCard from './ScheduleCard';
 import Header from '../Navbar/header';
@@ -6,8 +6,11 @@ import DayFilter from './DayFilter';
 import Pagination from './Pagination';
 import SearchBar from './SearchBar';
 import axios from 'axios';
+import { UserContext } from "../UserProvider";
+
 
 function SchedulePage() {
+
     const navigate = useNavigate()
     const [schedules, setSchedules] = useState([]); // State untuk menyimpan data schedule
     const [filteredSchedules, setFilteredSchedules] = useState([]); // State untuk data yang sudah difilter

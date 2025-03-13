@@ -191,7 +191,7 @@ function App() {
                 </RegistrationRoute>
               </UserProvider>
             </ProtectedRoute>}></Route>
-
+            
             <Route path='/meal-schedule/add-schedule' element={
             <ProtectedRoute>
               <UserProvider>

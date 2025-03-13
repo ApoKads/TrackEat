@@ -31,10 +31,17 @@ function AddFood(){
     
         const [isEditingPercentage, setIsEditingPercentage] = useState(false); // Mode edit persentase
         const [isEditingMacro, setIsEditingMacro] = useState(false); // Mode edit persentase
+        const maxLength = 28; // Maksimal panjang input
+        const maxLengthDesc = 1023; // Maksimal panjang input
     
     const handleAddFood = async()=>{
         if(foodName===""||servingSize===""||description===""||calories===0||calories===""){
             setMessage("All of the field must be filled!");
+            setShowMessage(true);
+            return;
+        }
+        if(calories>9999){
+            setMessage("Calories Exceed 9999!")
             setShowMessage(true);
             return;
         }
@@ -71,6 +78,7 @@ function AddFood(){
           e.target.blur(); // Menghilangkan fokus dari input
         }
       };
+    
 
     useEffect(()=>{
         setShowMessage(false);
@@ -89,6 +97,7 @@ function AddFood(){
                     placeholder="Enter food name"
                     className="w-full p-2 border rounded"
                     onKeyDown={handleKeyDown}
+                    maxLength={maxLength}
                 />
                 <p className="text-gray-500 text-lg">1 portion</p>
                 <div className="mt-4">
@@ -100,7 +109,7 @@ function AddFood(){
                     placeholder="Enter serving size (Example : 2 cups / 1 spoon / 100 gr)"
                     className="w-full p-2 border rounded"
                     onKeyDown={handleKeyDown}
-
+                    maxLength={maxLength}
                 />
                 </div>
             </div>
@@ -113,7 +122,7 @@ function AddFood(){
                     placeholder="Enter description"
                     className="w-full p-2 border rounded h-52"
                     onKeyDown={handleKeyDown}
-
+                    maxLength={maxLengthDesc}
                     rows={3}
                 />
             </div>
@@ -168,7 +177,7 @@ function AddFood(){
                         {/* <MacroCalculator/> */}
                         <div className="flex flex-col gap-4">
                             <div className={`p-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400 w-full self-center text-center ${showMessage ? 'block' : 'hidden'}`} role="alert">
-                                <span className="font-medium">Attention!</span> All of the area must be filled.
+                                <span className="font-medium">Attention!</span> {message}
                             </div>
                             <button
                             onClick={handleAddFood}

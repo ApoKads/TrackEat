@@ -67,12 +67,12 @@ router.get('/detail/:id', accessValidation, async (req, res) => {
                 schedule s
             JOIN 
                 section sec ON s.id = sec.schedule_id
-            JOIN 
+            LEFT JOIN  -- Menggunakan LEFT JOIN untuk sectionfood dan foods
                 sectionfood sf ON sec.id = sf.section_id
-            JOIN 
+            LEFT JOIN 
                 foods f ON sf.food_id = f.id
             WHERE 
-                s.id = $1 AND s.user_id = $2`, // Pastikan schedule milik user yang sesuai
+                s.id = $1 AND s.user_id = $2;`, // Pastikan schedule milik user yang sesuai
             [id, userId]
         );
 
@@ -108,14 +108,17 @@ router.get('/detail/:id', accessValidation, async (req, res) => {
                     active:row.section_active,
                 });
             }
-            sectionMap.get(row.section_id).foods.push({
-                id: row.food_id,
-                name: row.food_name,
-                calories: row.calories,
-                carbs: row.carbs,
-                fat: row.fat,
-                protein: row.protein
-            });
+
+            if (row.food_id) {
+                sectionMap.get(row.section_id).foods.push({
+                    id: row.food_id,
+                    name: row.food_name,
+                    calories: row.calories,
+                    carbs: row.carbs,
+                    fat: row.fat,
+                    protein: row.protein
+                });
+            }
         });
 
         // Menambahkan section ke schedule

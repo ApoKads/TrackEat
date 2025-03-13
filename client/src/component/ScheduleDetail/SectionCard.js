@@ -113,16 +113,16 @@ function SectionCard({ section }) {
                         <div className='grid grid-cols-[20%,20%,20%,20%,20%] sm:grid-cols-[25%,15%,15%,15%,15%,1fr] mt-2'>
                             <h1 className='flex justify-start items-end font-pop font-bold text-sm sm:text-base'>Total</h1>
                             <div className='flex flex-col justify-center items-center'>
-                                <h1 className='font-pop font-normal text-sm sm:text-xl'>{totalCalories}</h1>
+                                <h1 className='font-pop font-normal text-sm sm:text-xl'>{totalCalories.toFixed(2)}</h1>
                             </div>
                             <div className='flex flex-col justify-center items-center'>
-                                <h1 className='font-pop font-normal text-sm sm:text-xl'>{totalCarbs}</h1>
+                                <h1 className='font-pop font-normal text-sm sm:text-xl'>{totalCarbs.toFixed(2)}</h1>
                             </div>
                             <div className='flex flex-col justify-center items-center'>
-                                <h1 className='font-pop font-normal text-sm sm:text-xl'>{totalFat}</h1>
+                                <h1 className='font-pop font-normal text-sm sm:text-xl'>{totalFat.toFixed(2)}</h1>
                             </div>
                             <div className='flex flex-col justify-center items-center'>
-                                <h1 className='font-pop font-normal text-sm sm:text-xl'>{totalProtein}</h1>
+                                <h1 className='font-pop font-normal text-sm sm:text-xl'>{totalProtein.toFixed(2)}</h1>
                             </div>
                     
                         </div>

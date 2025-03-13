@@ -163,6 +163,20 @@ function NutrientForm({
         }
       };
 
+      const handleCaloriesBlur = () => {
+        setIsEditingCalories(false); // Keluar mode edit
+        // Hitung nilai fat, carbs, dan protein berdasarkan persentase
+        const newFat = ((calories * percentFat) / 100) / 9;
+        const newCarbs = ((calories * percentCarbs) / 100) / 4;
+        const newProtein = ((calories * percentProtein) / 100) / 4;
+
+        // Update state fat, carbs, dan protein
+        setFat(Number(newFat.toFixed(2))); // Bulatkan ke 2 angka di belakang koma
+        setCarbs(Number(newCarbs.toFixed(2)));
+        setProtein(Number(newProtein.toFixed(2)));
+      };
+
+
     return <div className="flex flex-col gap-6">
 
       {/* Input Kalori */}
@@ -175,7 +189,7 @@ function NutrientForm({
               value={calories}
               onChange={handleCaloriesChange} // Handle perubahan nilai
               onKeyDown={handleCaloriesKeyDown} // Handle tombol Enter
-              onBlur={() => setIsEditingCalories(false)} // Keluar mode edit saat kehilangan fokus
+              onBlur={handleCaloriesBlur} // Keluar mode edit saat kehilangan fokus
               autoFocus // Fokus otomatis ke input saat muncul
               className="w-full p-2 border rounded no-spinner"
               // min="0"

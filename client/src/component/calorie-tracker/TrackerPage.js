@@ -68,7 +68,7 @@ function TrackerPage() {
       const calculatePercentage = () => {
         return ((1 - (calorie - totals.calories) / calorie) * 100).toFixed(2);
       };
-    const [calorie, setCalorie] = useState(2545);
+    const [calorie, setCalorie] = useState(Math.round(user.dailycalories));
     const [percentage, setPercentage] = useState(calculatePercentage);
     const formattedCalorie = new Intl.NumberFormat('en-US').format(calorie);
     const formattedEaten = new Intl.NumberFormat('en-US').format(totals.calories);

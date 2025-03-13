@@ -21,8 +21,10 @@
                   e.target.blur(); // Menghilangkan fokus dari input
                 }
               };
+            
+            
       
-          return <div className="w-full h-[60vh] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col  gap-2" id="step1">
+          return <div className="w-full h-[36rem] up-6 rounded-t-3xl sm:w-[400px] text-center shadow-lg relative overflow-hidden bg-[#FAF6EF] flex flex-col  gap-2" id="step1">
       
           <div className="w-full h-10 bg-lime-400"></div>
           <div className="flex flex-col gap-1">
@@ -34,6 +36,7 @@
       
           <div className="w-full p-4 flex flex-col gap-2 justify-center">
               <div className="text-left font-bold text-black mb-2">Body Measurement</div>
+              <div className="text-left font-bold text-black mb-2">Height</div>
               <label className="sr-only" for="height">Height (in cm)</label>
               <input 
                   id="height" 
@@ -43,7 +46,7 @@
                   value={props.height}  // Gunakan props.firstName
                   onChange={(e) => {
                     const value = e.target.value
-                    if (/^\d*$/.test(value)) {
+                    if (/^\d*$/.test(value) && value <= 999) {
                         props.setHeight(value)
                     }
                   }}
@@ -51,6 +54,7 @@
 
                   />
               <label className="sr-only" for="weight">Weight (in kg)</label>
+              <div className="text-left font-bold text-black mb-2">Weight</div>
               <input 
                   id="weight" 
                   type="number" 
@@ -59,7 +63,7 @@
                   value={props.weight}  // Gunakan props.lastName
                   onChange={(e) =>{
                     const value = e.target.value
-                    if (/^\d*$/.test(value)) {
+                    if (/^\d*$/.test(value) && value <= 999 ) {
                         props.setWeight(e.target.value)
                     }
                     

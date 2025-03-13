@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { CloudinaryContext, Image } from 'cloudinary-react';
 import axios from 'axios';
 
 export const UserContext = createContext();
@@ -6,6 +7,7 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Tambahkan state loading
+  const [profileImage, setProfileImage] = useState(null); // State untuk URL gambar profil
 
   const fetchUserInfo = async () => {
     try {
@@ -23,6 +25,8 @@ export const UserProvider = ({ children }) => {
       });
 
       setUser(response.data.data); // Simpan data pengguna
+      setProfileImage(response.data.data.imageurl)
+
     } catch (error) {
       console.error('Error fetching user info:', error);
       if (error.response) {
@@ -39,7 +43,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, loading }}>
+    <UserContext.Provider value={{ user, loading,profileImage ,setProfileImage}}>
       {children}
     </UserContext.Provider>
   );

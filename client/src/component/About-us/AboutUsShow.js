@@ -7,14 +7,12 @@ import Teams from './Teams'
 function AboutUsShow() {
   return (
     <div
-    className="home">
-      {/* <Header/> */}
+    className="home -mb-96">
       <AboutUs/>
-      {/* <div class="mb-32"></div> */}
       <ImageTransition/>
-      <div class="mb-1 bg-slate-50"></div>
+      <div class="bg-slate-50"></div>
       <Fitur1/>
-      <div class="mb-10 bg-slate-50"></div>
+      <div class=" bg-slate-50"></div>
       <Teams/>
     </div>
   );

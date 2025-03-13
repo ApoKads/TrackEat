@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import warning from '../../assets/images/warning.png'
@@ -8,10 +8,33 @@ function ScheduleCard({ schedule }) {
     const [isNotifyLoading, setIsNotifyLoading] = useState(false);
     const [isActive, setIsActive] = useState(schedule.active);
     const [showConfirmation, setShowConfirmation] = useState(false); // State untuk custom confirmation box
+    const [hasGoogleEmail, setHasGoogleEmail] = useState(false);
+
     const titleLength = schedule.name.length;
     const navigate = useNavigate();
     const titleClass = titleLength > 20 ? 'text-4xl' : 'text-3xl sm:text-5xl';
 
+    // Fetch data pengguna saat komponen dimuat
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get('/user/info', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                const userData = response.data.data;
+                if (userData.google_email) {
+                    setHasGoogleEmail(true); // Set true jika google_email ada
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
+    
     const handleClick = () => {
         navigate(`detail/${schedule.id}`);
     };
@@ -212,7 +235,7 @@ function ScheduleCard({ schedule }) {
                                     </>
                                 )}
                             </button>
-                            <button
+                            {hasGoogleEmail&&(<button
                                 className={`flex items-center justify-center gap-2 p-2 w-36 rounded-md hover:scale-105 active:scale-95 transition duration-300 ease-in-out font-semibold ${
                                     isActive
                                         ? 'bg-[#2cd24d] text-white'  // Jika active true, hijau dan teks putih
@@ -232,7 +255,7 @@ function ScheduleCard({ schedule }) {
                                         {isActive ? 'Notified' : 'Notify Me'} <i className="fa-solid fa-bell"></i>
                                     </>
                                 )}
-                            </button>
+                            </button>)}
                         </div>
                     </div>
                 </div>
